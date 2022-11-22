@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fettan | myLibrary</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,200" />
+    <script src="script/script.js" defer></script>
+</head>
+
+<body class="bg-cyan-100">
+    <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded">
+        <div class="container flex flex-wrap items-center justify-between mx-auto">
+            <a href="#" class="flex items-center">
+                <img src="assets/logo.svg" class="h-6 mr-3 sm:h-9" alt="myLibrary" />
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">myLibrary</span>
+            </a>
+            <div class="w-full md:block md:w-auto" id="navbar-default">
+                <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 items-center">
+                    <li>
+                        <a href="#"
+                            class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+                            aria-current="page">myLibrary</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">The Odin Project</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">github</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block "><img class="w-10 h-10 rounded-full" src="assets/pp.jpeg" alt="Rounded avatar"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="mx-36 my-6">
+        <form action="#" method="get" id="form">
+            <label class="label" for="title">Book name:</label>
+            <input class="input" type="text" id="title" name="title" required><br>
+            <label class="label" for="author">Author name:</label>
+            <input class="input" type="text" id="author" name="author" required><br>
+            <label class="label" for="page">Page:</label>
+            <input class="input" type="number" id="page" name="page" required><br>
+            <input type="checkbox" id="read" name="read" value="true">
+            <label class="ml-1 text-sm font-medium text-gray-900" for="read"> Finished it?
+            </label><br>
+            <input class="btn" type="submit" value="Submit">
+        </form>
+        <div>
+            <div id="display" class="grid gap-4 grid-cols-3">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
