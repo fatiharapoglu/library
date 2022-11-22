@@ -3,6 +3,7 @@ const formDOM = document.querySelector("#form");
 formDOM.addEventListener('submit', (event) => {
     event.preventDefault();
     addBookToLibrary() ;
+
     });
 
 
@@ -24,6 +25,7 @@ function Book (title, author, page, read) {
     this.author = author;
     this.page = page;
     this.read = read;
+    this.uniqueID = Date.now()
     this.info = function () {
         return `${title} by ${author}, ${page} pages, Finished? -> ${read}`;
     };
@@ -50,7 +52,7 @@ const displayDOM = document.getElementById("display");
 function displayArray(e) {
 
     displayDOM.innerHTML += `
-    <div class="card flex content-center items-center flex-col">
+    <div id="${myLibrary[e].uniqueID}" class="card flex content-center items-center flex-col">
         <span class="material-symbols-outlined pb-5">menu_book</span>
         <h5 class="bookTitle">${myLibrary[e].title}</h5>
         <p class="bookAuthor">${myLibrary[e].author}</p>
@@ -62,3 +64,7 @@ function displayArray(e) {
     </div>
     `
 };
+
+function removeFromArray () {
+    
+}
