@@ -2,7 +2,8 @@
 const formDOM = document.querySelector("#form");
 formDOM.addEventListener('submit', (event) => {
     event.preventDefault();
-    addBookToLibrary() ;
+    addBookToLibrary();
+    removeFromArray();
     });
 
 
@@ -42,27 +43,28 @@ function addBookToLibrary() {
     myLibrary.push (newBook);
     console.log (myLibrary);
     displayArray();
+    clearForm();
 }
 
 
-// display array function
+// creates DOM cards with innerHTML
 const displayDOM = document.getElementById("display");
 
 function displayArray() {
     displayDOM.innerHTML = ""
-    for (let key of myLibrary){
-        if (key.read) {        
+    for (let book of myLibrary) {
+        if (book.read) {        
         displayDOM.innerHTML += `
             <div class="card flex content-center items-center flex-col">
                 <span class="material-symbols-outlined pb-5">menu_book</span>
-                <h5 class="bookTitle">${key.title}</h5>
-                <p class="bookAuthor">${key.author}</p>
-                <p class="bookAuthor">${key.page} pages</p>
+                <h5 class="bookTitle">${book.title}</h5>
+                <p class="bookAuthor">${book.author}</p>
+                <p class="bookAuthor">${book.page} pages</p>
                 <div>
                     <input type="checkbox" id="read" name="read" value="true" checked>
                     <label class="ml-1 text-sm font-medium text-gray-900" for="read"> Finished it? </label>
                 </div>
-                <button id="${key.uniqueID}">Remove</button>
+                <button id="${book.uniqueID}">Remove</button>
             </div>
             `
         }
@@ -70,23 +72,38 @@ function displayArray() {
         displayDOM.innerHTML += `
             <div class="card flex content-center items-center flex-col">
                 <span class="material-symbols-outlined pb-5">menu_book</span>
-                <h5 class="bookTitle">${key.title}</h5>
-                <p class="bookAuthor">${key.author}</p>
-                <p class="bookAuthor">${key.page} pages</p>
+                <h5 class="bookTitle">${book.title}</h5>
+                <p class="bookAuthor">${book.author}</p>
+                <p class="bookAuthor">${book.page} pages</p>
                 <div>
                     <input type="checkbox" id="read" name="read" value="true">
                     <label class="ml-1 text-sm font-medium text-gray-900" for="read"> Finished it? </label>
                 </div>
-                <button id="${key.uniqueID}">Remove</button>
+                <button id="${book.uniqueID}">Remove</button>
             </div>
             `
         }
     }
 };
 
+
+// remove array function with eventListeners of created buttons
 function removeFromArray() {
     const removeButtons = displayDOM.querySelectorAll("button");
     removeButtons.forEach(button => button.addEventListener('click', event => {
-        console.log ( event)
+        let index = myLibrary.findIndex(book => book.uniqueID == event.target.id); // finds the index of matched id
+        myLibrary.splice(index, 1);
+        console.log (myLibrary);
+        displayArray();
+        return removeFromArray(); // returns itself so it continues to listen the events after removing one item.
     }))
+};
+
+
+// clear function
+function clearForm() {
+    titleDOM.value = ""
+    authorDOM.value = ""
+    pageDOM.value = ""
+    readDOM.checked = ""
 }
