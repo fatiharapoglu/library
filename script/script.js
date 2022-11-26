@@ -4,7 +4,7 @@ formDOM.addEventListener('submit', (event) => {
     event.preventDefault();
     addBookToLibrary();
     removeFromArray();
-    });
+});
 
 
 // form consts
@@ -30,7 +30,7 @@ function Book (title, author, page, read) {
         return `${title} by ${author}, ${page} pages, Finished? -> ${read}`;
     };
     console.log (this.info());
-}
+};
 
 
 // submit event function which adds the books to the array
@@ -44,7 +44,7 @@ function addBookToLibrary() {
     console.log (myLibrary);
     displayArray();
     clearForm();
-}
+};
 
 
 // creates DOM cards with innerHTML
@@ -53,7 +53,6 @@ const displayDOM = document.getElementById("display");
 function displayArray() {
     displayDOM.innerHTML = ""
     for (let book of myLibrary) {
-        if (book.read) {        
         displayDOM.innerHTML += `
             <div class="card flex content-center items-center flex-col">
                 <span class="material-symbols-outlined pb-5">menu_book</span>
@@ -61,28 +60,12 @@ function displayArray() {
                 <p class="bookAuthor">${book.author}</p>
                 <p class="bookAuthor">${book.page} pages</p>
                 <div>
-                    <input type="checkbox" id="read" name="read" value="true" checked>
+                    <input type="checkbox" id="read" name="read" value="true" ${book.read ? 'checked' : 'unchecked'}>
                     <label class="ml-1 text-sm font-medium text-gray-900" for="read"> Finished it? </label>
                 </div>
                 <button id="${book.uniqueID}">Remove</button>
             </div>
             `
-        }
-        else {
-        displayDOM.innerHTML += `
-            <div class="card flex content-center items-center flex-col">
-                <span class="material-symbols-outlined pb-5">menu_book</span>
-                <h5 class="bookTitle">${book.title}</h5>
-                <p class="bookAuthor">${book.author}</p>
-                <p class="bookAuthor">${book.page} pages</p>
-                <div>
-                    <input type="checkbox" id="read" name="read" value="true">
-                    <label class="ml-1 text-sm font-medium text-gray-900" for="read"> Finished it? </label>
-                </div>
-                <button id="${book.uniqueID}">Remove</button>
-            </div>
-            `
-        }
     }
 };
 
@@ -92,9 +75,9 @@ function removeFromArray() {
     const removeButtons = displayDOM.querySelectorAll("button");
     removeButtons.forEach(button => button.addEventListener('click', event => {
         let index = myLibrary.findIndex(book => book.uniqueID == event.target.id); // finds the index of matched id
-        myLibrary.splice(index, 1);
+        myLibrary.splice(index, 1); // deletes from array
         console.log (myLibrary);
-        displayArray();
+        displayArray(); // refreshes the display
         return removeFromArray(); // returns itself so it continues to listen the events after removing one item.
     }))
 };
@@ -106,4 +89,4 @@ function clearForm() {
     authorDOM.value = ""
     pageDOM.value = ""
     readDOM.checked = ""
-}
+};
