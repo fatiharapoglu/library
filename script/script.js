@@ -63,7 +63,7 @@ function displayArray() {
                     <input type="checkbox" id="read" name="read" value="true" ${book.read ? 'checked' : 'unchecked'}>
                     <label class="ml-1 text-sm font-medium text-gray-900" for="read"> Finished it? </label>
                 </div>
-                <button id="${book.uniqueID}">Remove</button>
+                <button class="btn" id="${book.uniqueID}">Remove</button>
             </div>
             `
     }
@@ -90,3 +90,9 @@ function clearForm() {
     pageDOM.value = ""
     readDOM.checked = ""
 };
+
+const openModalDOM = document.getElementById('openModal');
+const defaultModalDOM = document.getElementById('defaultModal');
+openModalDOM.onclick = () => {
+    defaultModalDOM.classList.remove("hidden")
+}
