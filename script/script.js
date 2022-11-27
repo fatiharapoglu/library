@@ -16,7 +16,6 @@ const readDOM = document.getElementById("read");
 
 // empty array which will be filled with book objects
 let myLibrary = [];
-console.log(myLibrary);
 
 
 // constructor
@@ -29,7 +28,6 @@ function Book (title, author, page, read) {
     this.info = function() {
         return `${title} by ${author}, ${page} pages, Finished? -> ${read}`;
     };
-    console.log (this.info());
 };
 
 
@@ -41,9 +39,9 @@ function addBookToLibrary() {
     let read = readDOM.checked;
     let newBook = new Book (title, author, page, read);
     myLibrary.push (newBook);
-    console.log (myLibrary);
     displayArray();
     clearForm();
+    defaultModalDOM.classList.add("hidden");
 };
 
 
@@ -61,9 +59,9 @@ function displayArray() {
                 <p class="bookAuthor">${book.page} pages</p>
                 <div>
                     <input type="checkbox" id="read" name="read" value="true" ${book.read ? 'checked' : 'unchecked'}>
-                    <label class="ml-1 text-sm font-medium text-gray-900" for="read"> Finished it? </label>
+                    <label class="ml-1 text-sm text-gray-900" for="read"> Finished it? </label>
                 </div>
-                <button class="btn" id="${book.uniqueID}">Remove</button>
+                <button class="btn-remove" id="${book.uniqueID}">Remove</button>
             </div>
             `
     }
@@ -76,7 +74,6 @@ function removeFromArray() {
     removeButtons.forEach(button => button.addEventListener('click', event => {
         let index = myLibrary.findIndex(book => book.uniqueID == event.target.id); // finds the index of matched id
         myLibrary.splice(index, 1); // deletes from array
-        console.log (myLibrary);
         displayArray(); // refreshes the display
         return removeFromArray(); // returns itself so it continues to listen the events after removing one item.
     }))
@@ -91,8 +88,16 @@ function clearForm() {
     readDOM.checked = ""
 };
 
+
+// modal settings
 const openModalDOM = document.getElementById('openModal');
+const closeModalDOM = document.getElementById('closeModal');
 const defaultModalDOM = document.getElementById('defaultModal');
+
 openModalDOM.onclick = () => {
-    defaultModalDOM.classList.remove("hidden")
-}
+    defaultModalDOM.classList.remove("hidden");
+};
+
+closeModalDOM.onclick = () => {
+    defaultModalDOM.classList.add("hidden");
+};
