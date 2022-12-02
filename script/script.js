@@ -18,16 +18,18 @@ const readDOM = document.getElementById("read");
 let myLibrary = [];
 
 
-// constructor
-function Book (title, author, page, read) {
-    this.title = title;
-    this.author = author;
-    this.page = page;
-    this.read = read;
-    this.uniqueID = Date.now()
-    this.info = function() {
-        return `${title} by ${author}, ${page} pages, Finished? -> ${read}`;
-    };
+// book class
+class Book {
+    constructor(title, author, page, read) {
+        this.title = title;
+        this.author = author;
+        this.page = page;
+        this.read = read;
+        this.uniqueID = Date.now();
+    }
+    info = () => {
+        return `${this.title} by ${this.author}, ${this.page} pages, Finished? -> ${this.read}`;
+    }
 };
 
 
@@ -38,6 +40,7 @@ function addBookToLibrary() {
     let page = pageDOM.value;
     let read = readDOM.checked;
     let newBook = new Book (title, author, page, read);
+    console.log(newBook.info());
     myLibrary.push (newBook);
     displayArray();
     clearForm();
