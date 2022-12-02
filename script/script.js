@@ -52,7 +52,7 @@ function addBookToLibrary() {
 const displayDOM = document.getElementById("display");
 
 function displayArray() {
-    displayDOM.innerHTML = ""
+    displayDOM.innerHTML = "";
     for (let book of myLibrary) {
         displayDOM.innerHTML += `
             <div class="card flex content-center items-center flex-col">
@@ -85,10 +85,10 @@ function removeFromArray() {
 
 // clear function
 function clearForm() {
-    titleDOM.value = ""
-    authorDOM.value = ""
-    pageDOM.value = ""
-    readDOM.checked = ""
+    titleDOM.value = "";
+    authorDOM.value = "";
+    pageDOM.value = "";
+    readDOM.checked = "";
 };
 
 
