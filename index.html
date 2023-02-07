@@ -1,81 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fettan | myLibrary</title>
-    <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
-    <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,200" />
-    <script src="script/script.js" defer></script>
-</head>
-<body class="bg-slate-300 relative">
-    <nav class="bg-slate-100 border-gray-200 px-2 sm:px-4 py-2.5 rounded">
-        <div class="container flex flex-wrap items-center justify-between mx-auto">
-            <a href="#" class="flex items-center">
-                <img src="assets/logo.svg" class="h-6 mr-3 sm:h-9" alt="myLibrary" />
-                <span class="self-center text-xl font-semibold whitespace-nowrap">myLibrary</span>
-            </a>
-            <div class="w-full md:block md:w-auto" id="navbar-default">
-                <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md: items-center">
-                    <li>
-                        <a href="#"
-                            class="block py-2 pl-3 pr-4 rounded md:bg-transparent md:text-blue-700 md:p-0"
-                            aria-current="page">myLibrary</a>
-                    </li>
-                    <li>
-                        <a href="https://www.theodinproject.com/lessons/node-path-javascript-library"
-                            class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">The Odin Project</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/fatiharapoglu"
-                            class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">gitHub</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/fatiharapoglu"
-                            class="block "><img class="w-10 h-10 rounded-full" src="assets/pp.jpeg" alt="Rounded avatar"></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="flex justify-center py-5"><button id="open-modal" class="btn flex align-middle justify-center"><span class="material-symbols-outlined">library_add</span> &nbsp; Add Book</button></div>
-    <div id="default-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden absolute top-40 right-0 left-0 z-50 p-4">
-        <div class="relative w-full max-w-md h-full md:h-auto mx-auto">
-            <!-- Modal content -->
-            <div class="relative bg-slate-100 rounded-lg shadow">
-                <!-- Modal header -->
-                <div class="flex justify-between items-center p-5 rounded-t">
-                    <button id="close-modal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="default-modal">
-                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="p-6 space-y-6">
-                    <form action="#" method="get" id="form" autocomplete="off">
-                        <label class="label" for="title">Book name:</label>
-                        <input class="input" type="text" id="title" name="title" placeholder="Title" required><br>
-                        <label class="label" for="author">Author:</label>
-                        <input class="input" type="text" id="author" name="author" placeholder="Author name" required><br>
-                        <label class="label" for="page">Page:</label>
-                        <input class="input" type="number" id="page" name="page" placeholder="Pages" required><br>
-                        <input type="checkbox" id="read" name="read" value="true">
-                        <label class="ml-1 text-sm text-gray-900" for="read"> Have you read it?</label><br>
-                        <div class="flex align-middle justify-center"><input class="btn-submit mt-3" type="submit" value="Submit"></div>
-                    </form>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Fettan | myLibrary</title>
+        <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon" />
+        <link href="css/style.css" rel="stylesheet" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,200"
+        />
+        <script type="module" src="script/script.js" defer></script>
+    </head>
+    <body class="bg-slate-300 relative">
+        <nav class="bg-slate-100 border-gray-200 px-2 sm:px-4 py-2.5 rounded">
+            <div class="container flex flex-wrap items-center justify-between mx-auto">
+                <a href="#" class="flex items-center">
+                    <img src="assets/logo.svg" class="h-6 mr-3 sm:h-9" alt="myLibrary" />
+                    <span class="self-center text-xl font-semibold whitespace-nowrap"
+                        >myLibrary</span
+                    >
+                </a>
+                <div class="w-full md:block md:w-auto" id="navbar-default">
+                    <ul
+                        class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md: items-center"
+                    >
+                        <li>
+                            <a
+                                href="#"
+                                class="block py-2 pl-3 pr-4 rounded md:bg-transparent md:text-blue-700 md:p-0"
+                                aria-current="page"
+                                >myLibrary</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="https://www.theodinproject.com/lessons/node-path-javascript-library"
+                                class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+                                >The Odin Project</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="https://github.com/fatiharapoglu"
+                                class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+                                >gitHub</a
+                            >
+                        </li>
+                        <li>
+                            <a href="https://github.com/fatiharapoglu" class="block"
+                                ><img
+                                    class="w-10 h-10 rounded-full"
+                                    src="assets/pp.jpeg"
+                                    alt="Rounded avatar"
+                            /></a>
+                        </li>
+                        <li>
+                            <button id="google-login">Sign-in with Google</button>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </nav>
+        <div class="flex justify-center py-5">
+            <button id="open-modal" class="btn flex align-middle justify-center">
+                <span class="material-symbols-outlined">library_add</span> &nbsp; Add Book
+            </button>
         </div>
-    </div>
-    <div class="mx-36 my-6">
-        <div>
-            <div id="display" class="grid grid-cols-1 gap-2 md:gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <!-- created books comes here -->
+        <div
+            id="default-modal"
+            tabindex="-1"
+            class="hidden overflow-y-auto overflow-x-hidden absolute top-40 right-0 left-0 z-50 p-4"
+        >
+            <div class="relative w-full max-w-md h-full md:h-auto mx-auto">
+                <!-- Modal content -->
+                <div class="relative bg-slate-100 rounded-lg shadow">
+                    <!-- Modal header -->
+                    <div class="flex justify-between items-center p-5 rounded-t">
+                        <button
+                            id="close-modal"
+                            type="button"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                            data-modal-toggle="default-modal"
+                        >
+                            <svg
+                                aria-hidden="true"
+                                class="w-5 h-5"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"
+                                ></path>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="p-6 space-y-6">
+                        <form action="#" method="get" id="form" autocomplete="off">
+                            <label class="label" for="title">Book name:</label>
+                            <input
+                                class="input"
+                                type="text"
+                                id="title"
+                                name="title"
+                                placeholder="Title"
+                                required
+                            /><br />
+                            <label class="label" for="author">Author:</label>
+                            <input
+                                class="input"
+                                type="text"
+                                id="author"
+                                name="author"
+                                placeholder="Author name"
+                                required
+                            /><br />
+                            <label class="label" for="page">Page:</label>
+                            <input
+                                class="input"
+                                type="number"
+                                id="page"
+                                name="page"
+                                placeholder="Pages"
+                                required
+                            /><br />
+                            <input type="checkbox" id="read" name="read" value="true" />
+                            <label class="ml-1 text-sm text-gray-900" for="read">
+                                Have you read it?</label
+                            ><br />
+                            <div class="flex align-middle justify-center">
+                                <input class="btn-submit mt-3" type="submit" value="Submit" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</body>
+        <div class="mx-36 my-6">
+            <div>
+                <div
+                    id="display"
+                    class="grid grid-cols-1 gap-2 md:gap-4 md:grid-cols-2 lg:grid-cols-4"
+                >
+                    <!-- created books comes here -->
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
