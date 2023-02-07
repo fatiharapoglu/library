@@ -6,6 +6,84 @@ import {
     signInWithPopup,
     signOut,
 } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+import {
+    getFirestore,
+    collection,
+    addDoc,
+} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+
+// empty array which will be filled with book objects
+let myLibrary = [];
+
+// firebase
+let statusState; // true or false based on logged in or out
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCiXcNl8XwAPCOk1C833nt1aVdc4ZiJdT4",
+    authDomain: "library-68253.firebaseapp.com",
+    projectId: "library-68253",
+    storageBucket: "library-68253.appspot.com",
+    messagingSenderId: "999698004532",
+    appId: "1:999698004532:web:c64c709dcfe8670e71a861",
+};
+const firebase = initializeApp(firebaseConfig);
+const auth = getAuth(firebase);
+const firestore = getFirestore(firebase);
+const provider = new GoogleAuthProvider();
+
+const signInWithGoogle = async () => {
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            const user = result.user;
+            console.log(user);
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+            console.log(errorMessage);
+        });
+};
+
+const signOutUser = () => {
+    signOut(auth);
+};
+
+const getPP = () => {
+    const photoURL = auth.currentUser.photoURL;
+    const html = `
+        <img
+            id="google-pp-image"
+            class="w-10 h-10 rounded-full"
+            src=${photoURL}
+            alt="Rounded avatar"
+        />
+    `;
+    return html;
+};
+
+const signInWithGoogleDOM = document.getElementById("google-login");
+const signOutDOM = document.getElementById("google-logout");
+const ppGoogleDOM = document.getElementById("google-pp");
+signInWithGoogleDOM.addEventListener("click", signInWithGoogle);
+signOutDOM.addEventListener("click", signOutUser);
+
+onAuthStateChanged(auth, (user) => {
+    if (user !== null) {
+        statusState = true;
+        signInWithGoogleDOM.classList.add("hidden");
+        signOutDOM.classList.remove("hidden");
+        ppGoogleDOM.innerHTML = getPP();
+        ppGoogleDOM.classList.remove("hidden");
+        console.log("logged in");
+        resetDisplay();
+    } else {
+        statusState = false;
+        signInWithGoogleDOM.classList.remove("hidden");
+        signOutDOM.classList.add("hidden");
+        ppGoogleDOM.classList.add("hidden");
+        console.log("not logged in");
+        resetDisplay();
+    }
+});
 
 // form event listener
 const formDOM = document.querySelector("#form");
@@ -13,6 +91,8 @@ formDOM.addEventListener("submit", (event) => {
     event.preventDefault();
     addBookToLibrary();
     removeFromArray();
+    if (statusState) {
+    }
 });
 
 // form consts
@@ -20,9 +100,6 @@ const titleDOM = document.getElementById("title");
 const authorDOM = document.getElementById("author");
 const pageDOM = document.getElementById("page");
 const readDOM = document.getElementById("read");
-
-// empty array which will be filled with book objects
-let myLibrary = [];
 
 // book class
 class Book {
@@ -74,6 +151,12 @@ function displayArray() {
     }
 }
 
+// reset display when logged in or out
+function resetDisplay() {
+    myLibrary = [];
+    displayDOM.innerHTML = "";
+}
+
 // remove array function with eventListeners of created buttons
 function removeFromArray() {
     const removeButtons = displayDOM.querySelectorAll("button");
@@ -105,66 +188,3 @@ openModalDOM.onclick = () => {
 closeModalDOM.onclick = () => {
     defaultModalDOM.classList.add("hidden");
 };
-
-// firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyCiXcNl8XwAPCOk1C833nt1aVdc4ZiJdT4",
-    authDomain: "library-68253.firebaseapp.com",
-    projectId: "library-68253",
-    storageBucket: "library-68253.appspot.com",
-    messagingSenderId: "999698004532",
-    appId: "1:999698004532:web:c64c709dcfe8670e71a861",
-};
-const firebase = initializeApp(firebaseConfig);
-const auth = getAuth(firebase);
-const provider = new GoogleAuthProvider();
-
-const signInWithGoogle = async () => {
-    signInWithPopup(auth, provider)
-        .then((result) => {
-            const user = result.user;
-            console.log(user);
-        })
-        .catch((error) => {
-            const errorMessage = error.message;
-            console.log(errorMessage);
-        });
-};
-
-const signOutUser = () => {
-    signOut(auth);
-};
-
-const getPP = () => {
-    const photoURL = auth.currentUser.photoURL;
-    const html = `
-        <img
-            id="google-pp-image"
-            class="w-10 h-10 rounded-full"
-            src=${photoURL}
-            alt="Rounded avatar"
-        />
-    `;
-    return html;
-};
-
-const signInWithGoogleDOM = document.getElementById("google-login");
-const signOutDOM = document.getElementById("google-logout");
-const ppGoogleDOM = document.getElementById("google-pp");
-signInWithGoogleDOM.addEventListener("click", signInWithGoogle);
-signOutDOM.addEventListener("click", signOutUser);
-
-onAuthStateChanged(auth, (user) => {
-    if (user !== null) {
-        signInWithGoogleDOM.classList.add("hidden");
-        signOutDOM.classList.remove("hidden");
-        ppGoogleDOM.innerHTML = getPP();
-        ppGoogleDOM.classList.remove("hidden");
-        console.log("logged in");
-    } else {
-        signInWithGoogleDOM.classList.remove("hidden");
-        signOutDOM.classList.add("hidden");
-        ppGoogleDOM.classList.add("hidden");
-        console.log("not logged in");
-    }
-});
