@@ -107,8 +107,6 @@ closeModalDOM.onclick = () => {
 };
 
 // firebase
-const signGoogleDOM = document.getElementById("google-login");
-
 const firebaseConfig = {
     apiKey: "AIzaSyCiXcNl8XwAPCOk1C833nt1aVdc4ZiJdT4",
     authDomain: "library-68253.firebaseapp.com",
@@ -117,48 +115,56 @@ const firebaseConfig = {
     messagingSenderId: "999698004532",
     appId: "1:999698004532:web:c64c709dcfe8670e71a861",
 };
-
 const firebase = initializeApp(firebaseConfig);
 const auth = getAuth(firebase);
 const provider = new GoogleAuthProvider();
 
-signGoogleDOM.addEventListener("click", () => {
+const signInWithGoogle = async () => {
     signInWithPopup(auth, provider)
         .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            // The signed-in user info.
             const user = result.user;
-            // IdP data available using getAdditionalUserInfo(result)
-            // ...
             console.log(user);
         })
         .catch((error) => {
-            // Handle Errors here.
-            const errorCode = error.code;
             const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.customData.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
-            // ...
             console.log(errorMessage);
         });
-});
+};
+
+const signOutUser = () => {
+    signOut(auth);
+};
+
+const getPP = () => {
+    const photoURL = auth.currentUser.photoURL;
+    const html = `
+        <img
+            id="google-pp-image"
+            class="w-10 h-10 rounded-full"
+            src=${photoURL}
+            alt="Rounded avatar"
+        />
+    `;
+    return html;
+};
+
+const signInWithGoogleDOM = document.getElementById("google-login");
+const signOutDOM = document.getElementById("google-logout");
+const ppGoogleDOM = document.getElementById("google-pp");
+signInWithGoogleDOM.addEventListener("click", signInWithGoogle);
+signOutDOM.addEventListener("click", signOutUser);
 
 onAuthStateChanged(auth, (user) => {
     if (user !== null) {
+        signInWithGoogleDOM.classList.add("hidden");
+        signOutDOM.classList.remove("hidden");
+        ppGoogleDOM.innerHTML = getPP();
+        ppGoogleDOM.classList.remove("hidden");
         console.log("logged in");
     } else {
+        signInWithGoogleDOM.classList.remove("hidden");
+        signOutDOM.classList.add("hidden");
+        ppGoogleDOM.classList.add("hidden");
         console.log("not logged in");
     }
 });
-
-signOut(auth)
-    .then(() => {
-        // Sign-out successful.
-    })
-    .catch((error) => {
-        // An error happened.
-    });

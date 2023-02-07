@@ -7,6 +7,7 @@
         <title>Fettan | myLibrary</title>
         <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon" />
         <link href="css/style.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/non-tw.css" />
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,200"
@@ -49,15 +50,16 @@
                             >
                         </li>
                         <li>
-                            <a href="https://github.com/fatiharapoglu" class="block"
-                                ><img
-                                    class="w-10 h-10 rounded-full"
-                                    src="assets/pp.jpeg"
-                                    alt="Rounded avatar"
-                            /></a>
+                            <button id="google-login" class="hidden">Sign-in with Google</button>
                         </li>
-                        <li>
-                            <button id="google-login">Sign-in with Google</button>
+                        <li><button id="google-logout" class="hidden">Sign-out</button></li>
+                        <li id="google-pp" class="hidden">
+                            <img
+                                id="google-pp-image"
+                                class="w-10 h-10 rounded-full"
+                                src="assets/pp.jpeg"
+                                alt="Rounded avatar"
+                            />
                         </li>
                     </ul>
                 </div>
