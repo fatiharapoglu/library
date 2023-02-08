@@ -36,7 +36,6 @@ const signInWithGoogle = async () => {
     signInWithPopup(auth, provider)
         .then((result) => {
             const user = result.user;
-            console.log(user);
         })
         .catch((error) => {
             const errorMessage = error.message;
@@ -74,7 +73,6 @@ onAuthStateChanged(auth, (user) => {
         signOutDOM.classList.remove("hidden");
         ppGoogleDOM.innerHTML = getPP();
         ppGoogleDOM.classList.remove("hidden");
-        console.log("logged in");
         resetDisplay();
         getFromDB();
     } else {
@@ -82,16 +80,17 @@ onAuthStateChanged(auth, (user) => {
         signInWithGoogleDOM.classList.remove("hidden");
         signOutDOM.classList.add("hidden");
         ppGoogleDOM.classList.add("hidden");
-        console.log("not logged in");
         resetDisplay();
     }
 });
 
 async function updateDB() {
     const library = JSON.stringify(myLibrary);
+    const id = auth.currentUser.uid;
     try {
-        await setDoc(doc(db, "library", "myLibrary"), {
+        await setDoc(doc(db, "library", id), {
             myLibrary: library,
+            id: id,
         });
     } catch (e) {
         console.error("Error adding document: ", e);
@@ -99,11 +98,12 @@ async function updateDB() {
 }
 
 async function getFromDB() {
-    const docRef = doc(db, "library", "myLibrary");
+    const id = auth.currentUser.uid;
+    const docRef = doc(db, "library", id);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data();
-    console.log(data[docSnap.id]);
-    const parsed = JSON.parse(data[docSnap.id]);
+    if (data === undefined) return;
+    const parsed = JSON.parse(data.myLibrary);
     myLibrary = parsed;
     displayArray();
     removeFromArray();
@@ -171,7 +171,6 @@ function displayArray() {
             </div>
             `;
     }
-
     if (statusState) {
         updateDB();
     }
