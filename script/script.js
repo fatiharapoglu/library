@@ -8,8 +8,9 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
 import {
     getFirestore,
-    collection,
-    addDoc,
+    doc,
+    setDoc,
+    getDoc,
 } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
 
 // empty array which will be filled with book objects
@@ -75,6 +76,7 @@ onAuthStateChanged(auth, (user) => {
         ppGoogleDOM.classList.remove("hidden");
         console.log("logged in");
         resetDisplay();
+        getFromDB();
     } else {
         statusState = false;
         signInWithGoogleDOM.classList.remove("hidden");
@@ -85,14 +87,33 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+async function updateDB() {
+    const library = JSON.stringify(myLibrary);
+    try {
+        await setDoc(doc(db, "library", "myLibrary"), {
+            myLibrary: library,
+        });
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
+}
+
+async function getFromDB() {
+    const docRef = doc(db, "library", "myLibrary");
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data();
+    console.log(data[docSnap.id]);
+    const parsed = JSON.parse(data[docSnap.id]);
+    myLibrary = parsed;
+    displayArray();
+}
+
 // form event listener
 const formDOM = document.querySelector("#form");
 formDOM.addEventListener("submit", (event) => {
     event.preventDefault();
     addBookToLibrary();
     removeFromArray();
-    if (statusState) {
-    }
 });
 
 // form consts
@@ -148,6 +169,10 @@ function displayArray() {
                 <button class="btn-remove" id="${book.uniqueID}">Remove</button>
             </div>
             `;
+    }
+
+    if (statusState) {
+        updateDB();
     }
 }
 
