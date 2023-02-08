@@ -4,6 +4,8 @@
 
 Created with HTML, vanilla JavaScript and Tailwind CSS.
 
+Added Firebase support.
+
 [Click for live preview](https://fatiharapoglu.github.io/library)
 
 ![RPS](assets/readme.png)
