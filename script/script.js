@@ -106,6 +106,7 @@ async function getFromDB() {
     const parsed = JSON.parse(data[docSnap.id]);
     myLibrary = parsed;
     displayArray();
+    removeFromArray();
 }
 
 // form event listener
