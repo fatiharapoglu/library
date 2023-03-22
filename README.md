@@ -1,11 +1,23 @@
 # Library
 
-[The Odin Project](https://www.theodinproject.com/lessons/node-path-javascript-library)'s node path javascript library project.
+Created with **HTML**, vanilla **JavaScript** and **Tailwind CSS**.
 
-Created with HTML, vanilla JavaScript and Tailwind CSS.
+Added **Firebase** support.
 
-Added Firebase support.
+⮕ [Live preview](https://fatiharapoglu.github.io/library/)
 
-[Click for live preview](https://fatiharapoglu.github.io/library)
+## Features
 
-![RPS](assets/readme.png)
+-   Users can add, delete and update books.
+-   Firestore database for saving books to access anywhere
+-   Responsive design
+
+## Helpers
+
+-   [Tailwind CSS](https://tailwindcss.com/)
+-   [Firebase](https://fonts.google.com/icons/) authorization for login and Firestore for database
+-   [FontAwesome](https://fontawesome.com/) Icons
+
+## How It Looks
+
+![ss](./assets/readme.png)
