@@ -15,8 +15,8 @@ Added **Firebase** support.
 ## Helpers
 
 -   [Tailwind CSS](https://tailwindcss.com/)
--   [Firebase](https://fonts.google.com/icons/) authorization for login and Firestore for database
--   [FontAwesome](https://fontawesome.com/) Icons
+-   [Firebase](https://firebase.google.com/) authorization for login and Firestore for database
+-   [Material](https://fonts.google.com/icons/) Symbols
 
 ## How It Looks
 
